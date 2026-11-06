@@ -45,6 +45,9 @@ index=* host=KCD-Web earliest="8/28/2026:08:00:00" latest="8/28/2026:09:00:00" s
 | table _time host EventCode user src_ip dest_ip dest_port Logon_Type
 ```
 
+<img width="1837" height="392" alt="image" src="https://github.com/user-attachments/assets/3fe403ce-48b9-41b1-a21c-356184723f45" />
+
+
 ### 2. Staging and Execution of `dControl.exe`
 
 Sysmon Event ID **11** recorded creation of:
@@ -61,6 +64,8 @@ index=* host="KCD-Web" earliest="8/28/2026:08:00:00" dControl.exe EventCode=11
 | sort + UtcTime
 ```
 
+<img width="1912" height="878" alt="image" src="https://github.com/user-attachments/assets/6c63c6d5-e05d-4705-935a-b199457ec37c" />
+
 The investigation pivoted on Sysmon `ProcessGuid` to follow related process, file, and registry events rather than relying only on filenames:
 
 ```spl
@@ -68,6 +73,8 @@ index=* {587438d6-4db8-6a91-dc20-000000000a00}
 | table _time EventCode EventDescription ParentImage process_path TargetFilename action
 | sort + _time
 ```
+
+<img width="1817" height="342" alt="image" src="https://github.com/user-attachments/assets/ec613deb-5cc5-4ece-9b09-f9f31040b0ef" />
 
 ### 3. Microsoft Defender Tampering
 
@@ -93,6 +100,9 @@ index=* {587438d6-4e18-6a91-3021-000000000a00}
 | sort + UtcTime
 ```
 
+<img width="1912" height="1497" alt="image" src="https://github.com/user-attachments/assets/9154dba2-70a1-4794-b2b7-62df57a85486" />
+
+
 ### 4. Additional Executables
 
 Subsequent events identified:
@@ -103,6 +113,9 @@ C:\Users\administrator\Pictures\dcontrol\x64-Release\Stub.exe
 ```
 
 `screenconnect.exe` was created/executed, but the investigation did not establish its functionality or further activity. `Stub.exe` was created around **09:00:38** and executed around **09:00:55**.
+
+<img width="1807" height="337" alt="image" src="https://github.com/user-attachments/assets/e7cabaeb-ce74-4aa2-acb8-72d9c6a66e70" />
+
 
 ### 5. `Stub.exe`: Recovery Inhibition and Defense Evasion
 
@@ -130,6 +143,9 @@ index=* host="KCD-Web" "Stub.exe" earliest="8/28/2026:09:00:30" latest="8/28/202
 | table _time EventCode EventDescription User ParentImage process_name process_path CommandLine TargetFilename registry_path registry_value_name registry_value_data action
 ```
 
+<img width="1912" height="1269" alt="image" src="https://github.com/user-attachments/assets/8a3c3e90-093b-42bf-b4b5-dc5ee44c8254" />
+
+
 ### 6. Persistence
 
 At 09:00:57, a Run-key value was configured to point to `Stub.exe`:
@@ -149,6 +165,9 @@ C:\PerfLogs\DataRecovery.txt
 ```
 
 The filename and timing, after shadow-copy deletion and recovery changes, make it a suspected ransom/recovery note. 
+
+<img width="775" height="861" alt="image" src="https://github.com/user-attachments/assets/971309fe-1687-4ec5-b3ec-8f5ae73f9f73" />
+
 
 ## Attack Sequence
 
