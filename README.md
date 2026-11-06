@@ -25,10 +25,10 @@ At 09:00:55, `Stub.exe` ran defense evasion commands that included Volume Shadow
 | 08:58:26 | Successful `administrator` RemoteInteractive logon (Type 10) | RDP session established |
 | 08:59:40 | `dControl.exe` created | Suspicious executable staged shortly after RDP |
 | 09:00:04 | `dControl.exe` executed, with `explorer.exe` as parent | Interactive-session-associated execution |
-| ~09:00:08–09:00:11 | Temporary files, Defender registry modifications, `Registry.pol` activity | Defense evasion / policy modification |
+| 09:00:08–09:00:11 | Temporary files, Defender registry modifications, `Registry.pol` activity | Defense evasion / policy modification |
 | 09:00:13 | `dControl.exe` terminated | End of observed process instance |
-| ~09:00:20 | `screenconnect.exe` created/executed | Additional suspicious executable activity |
-| ~09:00:38 | `Stub.exe` created | Next-stage payload staged |
+| 09:00:20 | `screenconnect.exe` created/executed | Additional suspicious executable activity |
+| 09:00:38 | `Stub.exe` created | Next-stage payload staged |
 | 09:00:55 | `Stub.exe` executed; shadow-copy deletion, recovery and Defender changes | Ransomware-associated recovery inhibition |
 | 09:00:57 | User Run-key value set to `Stub.exe` | Persistence |
 | 09:01:00 | `C:\PerfLogs\DataRecovery.txt` created | Possible ransom/recovery note |
